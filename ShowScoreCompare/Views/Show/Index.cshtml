@@ -1,0 +1,17 @@
+﻿@model Show
+
+@{
+    ViewData["Title"] = "Shows";
+}
+<h1>@ViewData["Title"]</h1>
+
+<tbody>
+
+    @foreach (var show in ViewBag.Shows){
+        <tr>
+            <td>@show.Id</td>
+            <td>@show.Title</td>
+        </tr>
+    }
+
+</tbody>
