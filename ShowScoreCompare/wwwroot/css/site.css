@@ -14,5 +14,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: rgba(40, 251, 197, 1);
+    background-image: radial-gradient(circle, rgba(89, 131, 252, 1) 0%, rgba(0, 0, 0, 1) 84%), url(https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=600);
+    background-size: auto;
+    background-position: center center;
+    background-repeat: repeat;
 }
+

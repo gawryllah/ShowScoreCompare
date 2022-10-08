@@ -3,10 +3,12 @@
 @{
     ViewData["Title"] = "Shows";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 style="color:whitesmoke">@ViewData["Title"]</h1>
+
+
 
 <tbody>
-
+    
     @foreach (var show in ViewBag.Shows){
         <tr>
             <td>@show.Id</td>
@@ -15,3 +17,17 @@
     }
 
 </tbody>
+
+<br />
+
+
+@using (Html.BeginForm("PostedShow", "Show", FormMethod.Post))
+{
+    <b style="color:whitesmoke">Title: </b>
+
+    @Html.TextBoxFor( m => m.Title, new { placeholder = "Enter Title" })
+    <input type="submit" name="SaveButton" value="Search" />
+}
+
+
+
