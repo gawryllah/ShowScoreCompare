@@ -26,6 +26,7 @@
     <b style="color:whitesmoke">Title: </b>
 
     @Html.TextBoxFor( m => m.Title, new { placeholder = "Enter Title" })
+    @Html.DropDownListFor(m => m.Type, new SelectList(Enum.GetValues(typeof(ShowType))))
     <input type="submit" name="SaveButton" value="Search" />
 }
 
