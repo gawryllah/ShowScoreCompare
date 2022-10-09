@@ -2,7 +2,6 @@
 using ShowScoreCompare.Data;
 using ShowScoreCompare.Models;
 using ShowScoreCompare.Services;
-using System.Web;
 
 namespace ShowScoreCompare.Controllers
 {
@@ -16,7 +15,7 @@ namespace ShowScoreCompare.Controllers
         {
             this.context = context;
             this.configuration = configuration;
-            this.movieDbService = movieDbService;   
+            this.movieDbService = movieDbService;
         }
 
         public IActionResult Index()
@@ -43,8 +42,8 @@ namespace ShowScoreCompare.Controllers
             }
 
             var obj = await movieDbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
-            ViewBag.ShowTitle = obj.title;
 
+            ViewBag.ShowTitle = obj != null ? obj.title : "No show found!";
             return View();
         }
     }

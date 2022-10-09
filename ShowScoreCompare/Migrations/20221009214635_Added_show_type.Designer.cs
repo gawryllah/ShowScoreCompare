@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShowScoreCompare.Data;
 
@@ -10,9 +11,10 @@ using ShowScoreCompare.Data;
 namespace ShowScoreCompare.Migrations
 {
     [DbContext(typeof(ShowDbContext))]
-    partial class ShowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221009214635_Added_show_type")]
+    partial class Added_show_type
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

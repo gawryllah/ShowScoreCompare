@@ -2,6 +2,8 @@
 
 namespace ShowScoreCompare.Models
 {
+    public enum ShowType { Movie, Series}
+
     public class Show
     {
         [Key]
@@ -10,5 +12,9 @@ namespace ShowScoreCompare.Models
         public string Title { get; set; }
 
         public int Views { get; set; }
+
+        public ShowType Type { get; set; }  
+        
+
     }
 }
