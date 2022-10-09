@@ -20,5 +20,12 @@ body {
     background-size: auto;
     background-position: center center;
     background-repeat: repeat;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
+
 

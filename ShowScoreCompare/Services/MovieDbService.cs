@@ -7,7 +7,8 @@ namespace ShowScoreCompare.Services
     {
         private readonly HttpClient _httpClient;
 
-        public MovieDbService(HttpClient httpClient)        {
+        public MovieDbService(HttpClient httpClient)
+        {
             _httpClient = httpClient;
         }
 
@@ -27,7 +28,7 @@ namespace ShowScoreCompare.Services
                 {
                     overview = root.results[0].overview,
                     popularity = root.results[0].popularity,
-                    poster_path = root.results[0].poster_path,
+                    poster_path = $"https://image.tmdb.org/t/p/original{root.results[0].poster_path}",
                     release_date = root.results[0].release_date,
                     title = root.results[0].title,
                     vote_average = root.results[0].vote_average,
@@ -55,7 +56,7 @@ namespace ShowScoreCompare.Services
                 {
                     overview = root.results[0].overview,
                     popularity = root.results[0].popularity,
-                    poster_path = root.results[0].poster_path,
+                    poster_path = $"https://image.tmdb.org/t/p/original{root.results[0].poster_path}",
                     release_date = root.results[0].release_date,
                     title = root.results[0].title != null ? root.results[0].title : root.results[0].name,
                     vote_average = root.results[0].vote_average,

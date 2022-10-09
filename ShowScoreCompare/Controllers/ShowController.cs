@@ -53,10 +53,14 @@ namespace ShowScoreCompare.Controllers
                 showDTO = await movieDbService.GetSeries(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
             }
 
+            if (showDTO == null)
+                return RedirectToAction("Index", "Show");
+
             ViewBag.ShowTitle = showDTO == null ? "No show found!" : showDTO.title;
             ViewBag.Type = showDTO == null ? "" : show.Type.ToString();
             ViewBag.Overview = showDTO.overview;
             ViewBag.Score = showDTO.vote_average;
+            ViewBag.Poster = showDTO.poster_path;
             return View();
         }
     }
