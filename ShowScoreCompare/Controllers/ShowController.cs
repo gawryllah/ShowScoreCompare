@@ -27,6 +27,7 @@ namespace ShowScoreCompare.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchedShow(Show show)
         {
+            ShowDTO showDTO = null;
             if (!ModelState.IsValid)
                 return RedirectToAction("Index", "Show");
 
@@ -41,9 +42,21 @@ namespace ShowScoreCompare.Controllers
                 TempData["Info"] = "";
             }
 
-            var obj = await movieDbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
 
-            ViewBag.ShowTitle = obj != null ? obj.title : "No show found!";
+            if (show.Type == ShowType.Movie)
+            {
+                showDTO = await movieDbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+            }
+            else if (show.Type == ShowType.Series)
+            {
+
+                showDTO = await movieDbService.GetSeries(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+            }
+
+            ViewBag.ShowTitle = showDTO == null ? "No show found!" : showDTO.title;
+            ViewBag.Type = showDTO == null ? "" : show.Type.ToString();
+            ViewBag.Overview = showDTO.overview;
+            ViewBag.Score = showDTO.vote_average;
             return View();
         }
     }

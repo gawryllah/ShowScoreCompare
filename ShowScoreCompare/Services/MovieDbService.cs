@@ -43,7 +43,7 @@ namespace ShowScoreCompare.Services
         {
             ShowDTO show = null;
 
-            var response = await _httpClient.GetAsync($"search/movie?api_key={key}&query={title}");
+            var response = await _httpClient.GetAsync($"search/tv?api_key={key}&query={title}");
 
             var content = await response.Content.ReadAsStringAsync();
 
@@ -57,7 +57,7 @@ namespace ShowScoreCompare.Services
                     popularity = root.results[0].popularity,
                     poster_path = root.results[0].poster_path,
                     release_date = root.results[0].release_date,
-                    title = root.results[0].title,
+                    title = root.results[0].title != null ? root.results[0].title : root.results[0].name,
                     vote_average = root.results[0].vote_average,
                     vote_count = root.results[0].vote_count
                 };
