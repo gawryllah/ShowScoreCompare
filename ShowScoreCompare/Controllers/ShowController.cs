@@ -9,13 +9,15 @@ namespace ShowScoreCompare.Controllers
     {
         private ShowDbContext context;
         private readonly IConfiguration configuration;
-        private readonly IMovieDbService movieDbService;
+        private readonly ITMDB_Service tmdbService; //tmdb
+        private readonly IIMDB_Service imdbService; //imdb
 
-        public ShowController(ShowDbContext context, IConfiguration configuration, IMovieDbService movieDbService)
+        public ShowController(ShowDbContext context, IConfiguration configuration, ITMDB_Service tmdbService, IIMDB_Service imdbService)
         {
             this.context = context;
             this.configuration = configuration;
-            this.movieDbService = movieDbService;
+            this.tmdbService = tmdbService;
+            this.imdbService = imdbService;
         }
 
         public IActionResult Index()
@@ -45,12 +47,12 @@ namespace ShowScoreCompare.Controllers
 
             if (show.Type == ShowType.Movie)
             {
-                showDTO = await movieDbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+                showDTO = await imdbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
             }
             else if (show.Type == ShowType.Series)
             {
 
-                showDTO = await movieDbService.GetSeries(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+                showDTO = await imdbService.GetSeries(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
             }
 
             if (showDTO == null)

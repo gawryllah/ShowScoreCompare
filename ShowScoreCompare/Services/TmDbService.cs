@@ -3,7 +3,7 @@ using ShowScoreCompare.Data;
 
 namespace ShowScoreCompare.Services
 {
-    public class TmDbService : IMovieDbService
+    public class TmDbService : ITMDB_Service
     {
         private readonly HttpClient _httpClient;
 
@@ -20,7 +20,7 @@ namespace ShowScoreCompare.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var root = await Task.Run(() => JsonConvert.DeserializeObject<Rootobject>(content));
+            var root = await Task.Run(() => JsonConvert.DeserializeObject<TmdbModel>(content));
 
             if (!(root.results.Length < 1))
             {
@@ -48,7 +48,7 @@ namespace ShowScoreCompare.Services
 
             var content = await response.Content.ReadAsStringAsync();
 
-            var root = await Task.Run(() => JsonConvert.DeserializeObject<Rootobject>(content));
+            var root = await Task.Run(() => JsonConvert.DeserializeObject<TmdbModel>(content));
 
             if (!(root.results.Length < 1))
             {

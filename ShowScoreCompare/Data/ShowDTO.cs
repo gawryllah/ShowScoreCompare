@@ -2,7 +2,7 @@
 {
     public class ShowDTO
     {
-        public string overview { get; set; }
+        public string overview { get; set; } //descrption
         public float popularity { get; set; }
         public string poster_path { get; set; }
         public string release_date { get; set; }

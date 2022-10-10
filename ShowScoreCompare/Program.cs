@@ -9,6 +9,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         Secrets.tmdb_api_key = builder.Configuration["tmdb_api_key"];
+        Secrets.imdb_api_key = builder.Configuration["imdb_api_key"];
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
@@ -17,10 +18,14 @@ internal class Program
         var config = provider.GetRequiredService<IConfiguration>();
 
         builder.Services.AddDbContext<ShowDbContext>(item => item.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-        builder.Services.AddHttpClient<IMovieDbService, TmDbService>(s =>
+        builder.Services.AddHttpClient<ITMDB_Service>(s =>
         {
             s.BaseAddress = new Uri("https://api.themoviedb.org/3/");
-            //s.DefaultRequestHeaders.Add("Accept", "application/.json");
+        });
+
+          builder.Services.AddHttpClient<IIMDB_Service>(i =>
+          {
+              i.BaseAddress = new Uri("https://imdb-api.com/en/API/");
         });
 
 

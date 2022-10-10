@@ -1,15 +1,15 @@
 ﻿namespace ShowScoreCompare.Data
 {
 
-    public class Rootobject
+    public class TmdbModel
     {
         public int page { get; set; }
-        public Result[] results { get; set; }
+        public TmdbResult[] results { get; set; }
         public int total_pages { get; set; }
         public int total_results { get; set; }
     }
 
-    public class Result
+    public class TmdbResult
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
