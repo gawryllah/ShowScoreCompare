@@ -22,6 +22,9 @@ namespace ShowScoreCompare.Services
 
             var root = await Task.Run(() => JsonConvert.DeserializeObject<TmdbModel>(content));
 
+            if (root.results == null)
+                return new ShowDTO();
+
             if (!(root.results.Length < 1))
             {
                 show = new ShowDTO()
@@ -50,6 +53,9 @@ namespace ShowScoreCompare.Services
 
             var root = await Task.Run(() => JsonConvert.DeserializeObject<TmdbModel>(content));
 
+            if (root.results == null)
+                return new ShowDTO();
+
             if (!(root.results.Length < 1))
             {
                 show = new ShowDTO()
@@ -58,7 +64,7 @@ namespace ShowScoreCompare.Services
                     popularity = root.results[0].popularity,
                     poster_path = $"https://image.tmdb.org/t/p/original{root.results[0].poster_path}",
                     release_date = root.results[0].release_date,
-                    title = root.results[0].title != null ? root.results[0].title : root.results[0].name,
+                    title = root.results[0].title,
                     vote_average = root.results[0].vote_average,
                     vote_count = root.results[0].vote_count
                 };

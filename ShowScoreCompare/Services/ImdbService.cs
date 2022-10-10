@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShowScoreCompare.Data;
+using ShowScoreCompare.Models;
 using System.Web;
 using static ShowScoreCompare.Data.ImdbIdGetter;
 
@@ -24,7 +25,10 @@ namespace ShowScoreCompare.Services
 
             var idWrapper = await Task.Run(() => JsonConvert.DeserializeObject<ImdbModel>(idAnswer));
 
-            if (!(idWrapper.results.Length < 1))
+            if (idWrapper.results == null)
+                return new ShowDTO();
+
+            if (!(idWrapper?.results.Length < 1))
             {
                 var response = await _httpClient.GetAsync($"Title/{key}/{idWrapper.results[0].id}/Ratings");
                 var content = await response.Content.ReadAsStringAsync();
@@ -35,7 +39,7 @@ namespace ShowScoreCompare.Services
                 int voteCounts;
 
                 float.TryParse(imdbResult.imDbRating, out raiting);
-                int.TryParse(imdbResult.imDbRating, out voteCounts);
+                int.TryParse(imdbResult.imDbRatingVotes, out voteCounts);
 
                 show = new ShowDTO()
                 {
@@ -44,7 +48,7 @@ namespace ShowScoreCompare.Services
                     poster_path = imdbResult.image,
                     release_date = imdbResult.releaseDate,
                     title = imdbResult.title,
-                    vote_average = raiting,
+                    score = imdbResult.imDbRating,
                     vote_count = voteCounts
                 };
             }
@@ -55,7 +59,7 @@ namespace ShowScoreCompare.Services
 
         public async Task<ShowDTO> GetSeries(string title, string key)
         {
-            ShowDTO series = null;
+            ShowDTO show = null;
 
             var responseId = await _httpClient.GetAsync($"SearchSeries/{key}/{Uri.EscapeUriString(title)}");
 
@@ -63,7 +67,10 @@ namespace ShowScoreCompare.Services
 
             var idWrapper = await Task.Run(() => JsonConvert.DeserializeObject<ImdbModel>(idAnswer));
 
-            if (!(idWrapper.results.Length < 1))
+            if (idWrapper.results == null)
+                return new ShowDTO();
+
+            if (!(idWrapper?.results.Length < 1))
             {
                 var response = await _httpClient.GetAsync($"Title/{key}/{idWrapper.results[0].id}/Ratings");
                 var content = await response.Content.ReadAsStringAsync();
@@ -74,22 +81,22 @@ namespace ShowScoreCompare.Services
                 int voteCounts;
 
                 float.TryParse(imdbResult.imDbRating, out raiting);
-                int.TryParse(imdbResult.imDbRating, out voteCounts);
+                int.TryParse(imdbResult.imDbRatingVotes, out voteCounts);
 
-                series = new ShowDTO()
+                show = new ShowDTO()
                 {
                     overview = imdbResult.plot,
                     popularity = 0f,
                     poster_path = imdbResult.image,
                     release_date = imdbResult.releaseDate,
                     title = imdbResult.title,
-                    vote_average = raiting,
+                    score = imdbResult.imDbRating,
                     vote_count = voteCounts
                 };
             }
 
 
-            return series;
+            return show;
         }
     }
 }

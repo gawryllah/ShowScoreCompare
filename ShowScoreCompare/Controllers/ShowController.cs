@@ -61,7 +61,13 @@ namespace ShowScoreCompare.Controllers
                 tmdbDTO = await tmdbService.GetSeries(imdbDTO.title, Secrets.tmdb_api_key);
             }
 
-            if (imdbDTO == null)
+            if (imdbDTO.title == null || tmdbDTO.title == null)
+            {
+                TempData["Info"] = "Show not found!";
+                return RedirectToAction("Index", "Show");
+            }
+
+            if (imdbDTO == null || tmdbDTO == null)
             {
                 TempData["Info"] = "Show not found!";
                 return RedirectToAction("Index", "Show");
@@ -77,11 +83,18 @@ namespace ShowScoreCompare.Controllers
             if (imdbDTO?.vote_count == 0)
             {
                 ViewBag.ImdbScore = "-";
+            }
+            else
+            {
+                ViewBag.ImdbScore =  imdbDTO?.score;
+            }
+
+            if(tmdbDTO?.vote_count == 0)
+            {
                 ViewBag.TmdbScore = "-";
             }
             else
             {
-                ViewBag.ImdbScore =  imdbDTO?.vote_average;
                 ViewBag.TmdbScore = tmdbDTO?.vote_average;
             }
 
