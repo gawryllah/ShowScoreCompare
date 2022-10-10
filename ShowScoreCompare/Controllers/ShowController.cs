@@ -89,7 +89,7 @@ namespace ShowScoreCompare.Controllers
                 ViewBag.ImdbScore =  imdbDTO?.score;
             }
 
-            if(tmdbDTO?.vote_count == 0)
+            if (tmdbDTO?.vote_count == 0)
             {
                 ViewBag.TmdbScore = "-";
             }
@@ -97,10 +97,6 @@ namespace ShowScoreCompare.Controllers
             {
                 ViewBag.TmdbScore = tmdbDTO?.vote_average;
             }
-
-
-
-
             return View();
         }
     }
