@@ -29,7 +29,9 @@ namespace ShowScoreCompare.Controllers
         [HttpPost]
         public async Task<IActionResult> SearchedShow(Show show)
         {
-            ShowDTO showDTO = null;
+            ShowDTO imdbDTO = null; //main dto
+            ShowDTO tmdbDTO = null;
+
             if (!ModelState.IsValid)
                 return RedirectToAction("Index", "Show");
 
@@ -47,39 +49,44 @@ namespace ShowScoreCompare.Controllers
 
             if (show.Type == ShowType.Movie)
             {
-                showDTO = await imdbService.GetMovie(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+           
+                imdbDTO = await imdbService.GetMovie(show.Title, Secrets.imdb_api_key);
+                tmdbDTO = await tmdbService.GetMovie(imdbDTO.title, Secrets.tmdb_api_key);
             }
             else if (show.Type == ShowType.Series)
             {
+               
 
-                showDTO = await imdbService.GetSeries(show.Title.Replace(" ", "+"), Secrets.tmdb_api_key);
+                imdbDTO = await imdbService.GetSeries(show.Title, Secrets.imdb_api_key);
+                tmdbDTO = await tmdbService.GetSeries(imdbDTO.title, Secrets.tmdb_api_key);
             }
 
-            if (showDTO == null)
+            if (imdbDTO == null)
             {
                 TempData["Info"] = "Show not found!";
                 return RedirectToAction("Index", "Show");
             }
 
-            ViewBag.ShowTitle = showDTO == null ? "No show found!" : showDTO.title;
-            ViewBag.Type = showDTO == null ? "" : show.Type.ToString();
-            ViewBag.Overview = showDTO.overview;
-            ViewBag.Poster = showDTO.poster_path;
-            ViewBag.VoteCount = showDTO.vote_count;
+            ViewBag.ShowTitle = imdbDTO == null ? "No show found!" : imdbDTO.title;
+            ViewBag.Type = show?.Type.ToString();
+            ViewBag.Overview = imdbDTO?.overview;
+            ViewBag.Poster = imdbDTO?.poster_path;
+            ViewBag.ImdbVc = imdbDTO?.vote_count;
+            ViewBag.TmdbVc = tmdbDTO?.vote_count;
 
-            if (showDTO.vote_count == 0)
+            if (imdbDTO?.vote_count == 0)
             {
-                ViewBag.Score = "-";
+                ViewBag.ImdbScore = "-";
+                ViewBag.TmdbScore = "-";
             }
             else
             {
-                ViewBag.Score=  showDTO.vote_average;
+                ViewBag.ImdbScore =  imdbDTO?.vote_average;
+                ViewBag.TmdbScore = tmdbDTO?.vote_average;
             }
 
 
-          
 
-            
 
             return View();
         }

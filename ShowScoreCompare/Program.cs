@@ -17,15 +17,17 @@ internal class Program
         var provider = builder.Services.BuildServiceProvider();
         var config = provider.GetRequiredService<IConfiguration>();
 
-        builder.Services.AddDbContext<ShowDbContext>(item => item.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-        builder.Services.AddHttpClient<ITMDB_Service>(s =>
+        builder.Services.AddDbContext<ShowDbContext>(
+            item => item.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+
+        builder.Services.AddHttpClient<ITMDB_Service, TmDbService>(s =>
         {
             s.BaseAddress = new Uri("https://api.themoviedb.org/3/");
         });
 
-          builder.Services.AddHttpClient<IIMDB_Service>(i =>
+          builder.Services.AddHttpClient<IIMDB_Service, ImdbService>(s =>
           {
-              i.BaseAddress = new Uri("https://imdb-api.com/en/API/");
+              s.BaseAddress = new Uri("https://imdb-api.com/en/API/");
         });
 
 

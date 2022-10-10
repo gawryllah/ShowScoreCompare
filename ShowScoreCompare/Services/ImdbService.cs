@@ -5,7 +5,7 @@ using static ShowScoreCompare.Data.ImdbIdGetter;
 
 namespace ShowScoreCompare.Services
 {
-    public class ImdbService : ITMDB_Service
+    public class ImdbService : IIMDB_Service
     {
         private readonly HttpClient _httpClient;
 
@@ -18,7 +18,7 @@ namespace ShowScoreCompare.Services
         {
             ShowDTO show = null;
 
-            var responseId = await _httpClient.GetAsync($"SearchMovie/{key}/{HttpUtility.UrlEncodeUnicode(title)}");
+            var responseId = await _httpClient.GetAsync($"SearchSeries/{key}/{Uri.EscapeUriString(title)}");
 
             var idAnswer = await responseId.Content.ReadAsStringAsync();
 
@@ -57,7 +57,7 @@ namespace ShowScoreCompare.Services
         {
             ShowDTO series = null;
 
-            var responseId = await _httpClient.GetAsync($"SearchSeries/{key}/{HttpUtility.UrlEncodeUnicode(title)}");
+            var responseId = await _httpClient.GetAsync($"SearchSeries/{key}/{Uri.EscapeUriString(title)}");
 
             var idAnswer = await responseId.Content.ReadAsStringAsync();
 
