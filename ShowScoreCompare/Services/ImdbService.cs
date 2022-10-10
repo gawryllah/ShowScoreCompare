@@ -61,7 +61,7 @@ namespace ShowScoreCompare.Services
         {
             ShowDTO show = null;
 
-            var responseId = await _httpClient.GetAsync($"SearchMovie/{key}/{Uri.EscapeUriString(title)}");
+            var responseId = await _httpClient.GetAsync($"SearchSeries/{key}/{Uri.EscapeUriString(title)}");
 
             var idAnswer = await responseId.Content.ReadAsStringAsync();
 
