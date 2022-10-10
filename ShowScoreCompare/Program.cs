@@ -17,7 +17,7 @@ internal class Program
         var config = provider.GetRequiredService<IConfiguration>();
 
         builder.Services.AddDbContext<ShowDbContext>(item => item.UseSqlServer(config.GetConnectionString("DefaultConnection")));
-        builder.Services.AddHttpClient<IMovieDbService, MovieDbService>(s =>
+        builder.Services.AddHttpClient<IMovieDbService, TmDbService>(s =>
         {
             s.BaseAddress = new Uri("https://api.themoviedb.org/3/");
             //s.DefaultRequestHeaders.Add("Accept", "application/.json");

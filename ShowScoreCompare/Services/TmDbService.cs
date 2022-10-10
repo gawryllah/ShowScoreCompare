@@ -3,11 +3,11 @@ using ShowScoreCompare.Data;
 
 namespace ShowScoreCompare.Services
 {
-    public class MovieDbService : IMovieDbService
+    public class TmDbService : IMovieDbService
     {
         private readonly HttpClient _httpClient;
 
-        public MovieDbService(HttpClient httpClient)
+        public TmDbService(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }

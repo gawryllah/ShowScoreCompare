@@ -54,13 +54,31 @@ namespace ShowScoreCompare.Controllers
             }
 
             if (showDTO == null)
+            {
+                TempData["Info"] = "Show not found!";
                 return RedirectToAction("Index", "Show");
+            }
 
             ViewBag.ShowTitle = showDTO == null ? "No show found!" : showDTO.title;
             ViewBag.Type = showDTO == null ? "" : show.Type.ToString();
             ViewBag.Overview = showDTO.overview;
-            ViewBag.Score = showDTO.vote_average;
             ViewBag.Poster = showDTO.poster_path;
+            ViewBag.VoteCount = showDTO.vote_count;
+
+            if (showDTO.vote_count == 0)
+            {
+                ViewBag.Score = "-";
+            }
+            else
+            {
+                ViewBag.Score=  showDTO.vote_average;
+            }
+
+
+          
+
+            
+
             return View();
         }
     }
