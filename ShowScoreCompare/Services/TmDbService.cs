@@ -22,7 +22,7 @@ namespace ShowScoreCompare.Services
 
             var root = await Task.Run(() => JsonConvert.DeserializeObject<TmdbModel>(content));
 
-            if (root.results == null)
+            if (root.results == null || root.results[0].title == null)
                 return new ShowDTO();
 
             if (!(root.results.Length < 1))

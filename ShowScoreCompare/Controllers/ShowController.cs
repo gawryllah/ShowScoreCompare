@@ -51,7 +51,7 @@ namespace ShowScoreCompare.Controllers
             {
            
                 imdbDTO = await imdbService.GetMovie(show.Title, Secrets.imdb_api_key);
-                tmdbDTO = await tmdbService.GetMovie(imdbDTO.title, Secrets.tmdb_api_key);
+                tmdbDTO = await tmdbService.GetMovie(imdbDTO?.title, Secrets.tmdb_api_key);
             }
             else if (show.Type == ShowType.Series)
             {
@@ -61,16 +61,35 @@ namespace ShowScoreCompare.Controllers
                 tmdbDTO = await tmdbService.GetSeries(imdbDTO.title, Secrets.tmdb_api_key);
             }
 
+            if (imdbDTO == null || tmdbDTO == null)
+            {
+                TempData["Info"] = "Show not found!";
+                return RedirectToAction("Index", "Show");
+            }
+
             if (imdbDTO.title == null || tmdbDTO.title == null)
             {
                 TempData["Info"] = "Show not found!";
                 return RedirectToAction("Index", "Show");
             }
 
-            if (imdbDTO == null || tmdbDTO == null)
+     
+
+
+            show.Title = imdbDTO.title;
+
+            var isInDb = context.ShowsDB.Where(x => x.Title.Equals(show.Title)).FirstOrDefault();
+            if (isInDb != null)
             {
-                TempData["Info"] = "Show not found!";
-                return RedirectToAction("Index", "Show");
+                isInDb.Views++;
+                context.ShowsDB.Update(isInDb);
+                context.SaveChanges();
+            }
+            else
+            {
+                show.Views = 1;
+                context.ShowsDB.Add(show);
+                context.SaveChanges();
             }
 
             ViewBag.ShowTitle = imdbDTO == null ? "No show found!" : imdbDTO.title;
