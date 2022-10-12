@@ -7,16 +7,19 @@
 
 <br />
 
+@if (ViewBag.MostPopularShows.Count > 0){
+    <table style="width:100%; align-content:center; border:dotted">
+        <caption>Most popular shows:</caption>
+        <tr style="align-content:center; width:inherit">
+            @foreach (var show in ViewBag.MostPopularShows)
+            {
+                <td style="color:aqua; outline-color:purple; padding:15px">@show.Title</td>
+            }
+        </tr>
+    </table>
+}
 
-<table style="width:100%; align-content:center; border:dotted">
-    <caption>Most popular shows:</caption>
-    <tr style="align-content:center; width:inherit">
-    @foreach (var show in ViewBag.MostPopularShows)
-    {
-            <td style="color:aqua; outline-color:purple; padding:15px">@show.Title</td>
-    }
-    </tr>
-</table>
+
 
 <br />
 

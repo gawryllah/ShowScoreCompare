@@ -22,7 +22,7 @@ namespace ShowScoreCompare.Controllers
 
         public IActionResult Index()
         {
-            var mostPopular = context.ShowsDB.OrderByDescending(x => x.Views).Take(4);
+            var mostPopular = context.ShowsDB.OrderByDescending(x => x.Views).Take(4).ToList();
             ViewBag.MostPopularShows = mostPopular;
 
             return View();
