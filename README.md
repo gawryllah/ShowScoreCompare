@@ -12,8 +12,9 @@ Fetching from services:
 
 # Screenshots
 > frontend status: WIP
-![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558495109980200/unknown.png)
+
 ![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558421307015228/unknown.png)
+![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558495109980200/unknown.png)
 ![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558560583061564/unknown.png)
 ![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558721514307594/unknown.png)
 ![image](https://cdn.discordapp.com/attachments/798693819138703381/1029558801118023770/unknown.png)
