@@ -22,7 +22,9 @@ namespace ShowScoreCompare.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.Shows = context.ShowsDB.ToList();
+            var mostPopular = context.ShowsDB.OrderByDescending(x => x.Views).Take(4);
+            ViewBag.MostPopularShows = mostPopular;
+
             return View();
         }
 
@@ -49,13 +51,13 @@ namespace ShowScoreCompare.Controllers
 
             if (show.Type == ShowType.Movie)
             {
-           
+
                 imdbDTO = await imdbService.GetMovie(show.Title, Secrets.imdb_api_key);
                 tmdbDTO = await tmdbService.GetMovie(imdbDTO?.title, Secrets.tmdb_api_key);
             }
             else if (show.Type == ShowType.Series)
             {
-               
+
 
                 imdbDTO = await imdbService.GetSeries(show.Title, Secrets.imdb_api_key);
                 tmdbDTO = await tmdbService.GetSeries(imdbDTO.title, Secrets.tmdb_api_key);
@@ -67,13 +69,13 @@ namespace ShowScoreCompare.Controllers
                 return RedirectToAction("Index", "Show");
             }
 
-            if (imdbDTO.title == null || tmdbDTO.title == null)
+            if (imdbDTO.title == null)
             {
                 TempData["Info"] = "Show not found!";
                 return RedirectToAction("Index", "Show");
             }
 
-     
+
 
 
             show.Title = imdbDTO.title;
@@ -105,7 +107,7 @@ namespace ShowScoreCompare.Controllers
             }
             else
             {
-                ViewBag.ImdbScore =  imdbDTO?.score;
+                ViewBag.ImdbScore = imdbDTO?.score;
             }
 
             if (tmdbDTO?.vote_count == 0)

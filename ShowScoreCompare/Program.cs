@@ -25,9 +25,9 @@ internal class Program
             s.BaseAddress = new Uri("https://api.themoviedb.org/3/");
         });
 
-          builder.Services.AddHttpClient<IIMDB_Service, ImdbService>(s =>
-          {
-              s.BaseAddress = new Uri("https://imdb-api.com/en/API/");
+        builder.Services.AddHttpClient<IIMDB_Service, ImdbService>(s =>
+        {
+            s.BaseAddress = new Uri("https://imdb-api.com/en/API/");
         });
 
 

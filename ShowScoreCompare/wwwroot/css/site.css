@@ -28,4 +28,19 @@ body {
     align-content: center;
 }
 
+tbody {
+    background-color: transparent;
+    display: block;
+}
+
+caption {
+    caption-side: top;
+    text-align: center;
+    font-size: 50px;
+    width:auto;
+    color: black;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: whitesmoke;
+}
+
 

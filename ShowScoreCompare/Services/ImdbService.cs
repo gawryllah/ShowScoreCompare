@@ -1,7 +1,5 @@
 ﻿using Newtonsoft.Json;
 using ShowScoreCompare.Data;
-using ShowScoreCompare.Models;
-using System.Web;
 using static ShowScoreCompare.Data.ImdbIdGetter;
 
 namespace ShowScoreCompare.Services

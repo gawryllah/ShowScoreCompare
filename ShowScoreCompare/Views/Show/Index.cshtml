@@ -5,18 +5,18 @@
 }
 <h1 style="color:whitesmoke">@ViewData["Title"]</h1>
 
+<br />
 
 
-<tbody>
-    
-    @foreach (var show in ViewBag.Shows){
-        <tr>
-            <td>@show.Id</td>
-            <td>@show.Title</td>
-        </tr>
+<table style="width:100%; align-content:center; border:dotted">
+    <caption>Most popular shows:</caption>
+    <tr style="align-content:center; width:inherit">
+    @foreach (var show in ViewBag.MostPopularShows)
+    {
+            <td style="color:aqua; outline-color:purple; padding:15px">@show.Title</td>
     }
-
-</tbody>
+    </tr>
+</table>
 
 <br />
 
